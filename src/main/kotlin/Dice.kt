@@ -1,27 +1,9 @@
 import kotlin.random.Random
 
 class Dice {
-    var number: Int
-    var locked: Boolean
-
-    init {
-        this.number = Random.nextInt(1, 6)
-        this.locked = false;
-    }
+    var number: Int = Random.nextInt(1, 7)
 
     fun roleDice() {
-        this.number = Random.nextInt(1, 6)
+        this.number = Random.nextInt(1, 7)
     }
-
-    fun lockDice() {
-        this.locked = true
-    }
-
-    fun unlockDice() {
-        this.locked = false
-    }
-
-    fun isLocked() = this.locked
-
-    fun checkValue() = this.number
 }

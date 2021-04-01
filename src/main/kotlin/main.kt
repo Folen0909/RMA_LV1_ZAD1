@@ -1,51 +1,51 @@
 fun main(args: Array<String>) {
+
     var gameOver = false
     var appInput: String
     while(!gameOver) {
-        while(true) {
-            println("1: New game")
-            println("exit: Quit")
-            appInput = readLine() ?: "Try again"
-            if (appInput == "1" || appInput == "exit") break
-        }
+        println("1: New roles")
+        println("anything else: Quit")
+        appInput = readLine() ?: ""
         when(appInput) {
             "1" -> {
-                var done = false
+                var rolesOver = false
                 var gameInput: String
                 val game = Game()
-                game.printValues()
-                println(game.checkResult())
-                while(!done) {
-                    while(true) {
-                        println()
-                        println("1: Role all unlocked dice")
-                        println("2: Show dice values")
-                        println("3: Option to lock dice")
-                        println("back: go back")
-                        gameInput = readLine() ?: "Try again"
-                        if (gameInput == "1" || gameInput == "2" || gameInput == "3" || gameInput == "back") break
-                    }
+                game.seeHand()
+                game.checkHand()
+                while(!rolesOver) {
+                    println()
+                    println("1: Role hand")
+                    println("2: See hand")
+                    println("3: Lock dice")
+                    println("anything else: back")
+                    gameInput = readLine() ?: ""
                     when(gameInput) {
                         "1" -> {
                             println()
-                            game.role()
-                            game.printValues()
-                            println(game.checkResult())
+                            game.roleHand()
+                            game.seeHand()
+                            game.checkHand()
+                            if (game.isOver()) {
+                                println("Roles over")
+                                println()
+                                rolesOver = true
+                            }
                         }
                         "2" -> {
                             println()
-                            game.printValues()
+                            game.seeHand()
                         }
                         "3" -> {
                             println()
                             println("Enter dice number to lock: ")
-                            game.lockDice((readLine() ?: "0").toInt())
+                            game.hand.lockDice((readLine() ?: "0").toInt())
                         }
-                        "back" -> done = true
+                        else -> rolesOver = true
                     }
                 }
             }
-            "exit" -> gameOver = true
+            else -> gameOver = true
         }
     }
 }
